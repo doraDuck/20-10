@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chúc mừng ngày Phụ nữ Việt Nam 20/10</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Nền hồng + ánh sáng -->
+  <div class="bg" aria-hidden="true">
+    <div class="rays"></div>
+    <i></i><i></i><i></i>
+  </div>
+
+  <!-- Hoa viền (được sinh bằng script.js) -->
+  <div id="flowers" class="flowers" aria-hidden="true"></div>
+
+  <main class="stage">
+
+    <!-- Màn hình chạm để mở -->
+    <section class="intro" id="intro">
+      <p class="badge">✿ 20/10 ✿</p>
+      <div class="intro-fx">
+        <span class="ring"></span><span class="ring"></span><span class="ring"></span>
+        <div class="intro-flower" id="introFlower"></div>
+      </div>
+      <p class="hint">Chạm vào bất kỳ đâu để mở lời chúc</p>
+    </section>
+
+    <!-- Thẻ lời chúc -->
+    <section class="card" id="card">
+      <h1 id="title" class="title"></h1>
+      <div class="divider" id="divider"><span></span><b>♥</b><span></span></div>
+      <div id="wishes" class="wishes"></div>
+      <button id="replay" class="replay" type="button">Xem lại ✿</button>
+    </section>
+
+  </main>
+
+  <!-- Canvas: cánh hoa, tim, lấp lánh -->
+  <canvas id="fx" aria-hidden="true"></canvas>
+
+  <script src="script.js"></script>
+</body>
+</html>

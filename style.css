@@ -1,0 +1,244 @@
+/* ============ Reset & nền ============ */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%}
+body{
+  font-family:'Montserrat','Segoe UI',system-ui,sans-serif;
+  color:#3a2a31;
+  background:#f9c0d0;
+  overflow-x:hidden;
+  -webkit-tap-highlight-color:transparent;
+  cursor:pointer;
+}
+
+.bg{
+  position:fixed;inset:0;z-index:0;overflow:hidden;
+  background:radial-gradient(120% 90% at 50% 35%,#ffe6ee 0%,#fbc4d3 55%,#f4a3bd 100%);
+}
+.bg i{
+  position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;
+  animation:drift 18s ease-in-out infinite alternate;
+}
+.bg i:nth-child(2){width:55vmax;height:55vmax;left:-15vmax;top:-20vmax;background:#fff4f8}
+.bg i:nth-child(3){width:50vmax;height:50vmax;right:-15vmax;bottom:-20vmax;background:#ff9fc0;animation-duration:24s}
+.bg i:nth-child(4){width:35vmax;height:35vmax;right:10vmax;top:-10vmax;background:#ffd6e3;animation-duration:20s;animation-delay:-6s}
+.rays{
+  position:absolute;left:50%;top:40%;width:220vmax;height:220vmax;translate:-50% -50%;
+  background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.22) 0 5deg,transparent 5deg 16deg);
+  -webkit-mask-image:radial-gradient(circle closest-side,#000 0,transparent 60%);
+          mask-image:radial-gradient(circle closest-side,#000 0,transparent 60%);
+  animation:spinr 140s linear infinite;
+}
+@keyframes spinr{to{rotate:360deg}}
+@keyframes drift{
+  from{transform:translate(0,0) scale(1)}
+  to{transform:translate(6vmax,5vmax) scale(1.2)}
+}
+
+/* ============ Hoa viền ============ */
+.flowers{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.flower{
+  position:absolute;
+  width:calc(var(--s) * 1vmin);
+  aspect-ratio:1;
+  translate:-50% -50%;
+  transform:scale(0) rotate(-140deg);
+  opacity:0;
+  will-change:transform;
+}
+.opened .flower{
+  animation:bloomIn 1.9s cubic-bezier(.2,1.25,.35,1) var(--delay) both;
+}
+@keyframes bloomIn{
+  from{transform:scale(0) rotate(-140deg);opacity:0}
+  35%{opacity:1}
+  to{transform:scale(1) rotate(var(--rot));opacity:1}
+}
+.sway{
+  width:100%;height:100%;
+  animation:sway var(--sd,7s) ease-in-out var(--sdel,0s) infinite alternate;
+}
+.sway svg{
+  width:100%;height:100%;display:block;overflow:visible;
+  filter:drop-shadow(0 8px 14px rgba(190,40,100,.28));
+}
+@keyframes sway{
+  from{transform:rotate(-5deg) translate(-4px,0) scale(1)}
+  to{transform:rotate(5deg) translate(4px,6px) scale(1.05)}
+}
+
+/* ============ Sân khấu ============ */
+.stage{
+  position:relative;z-index:3;
+  min-height:100vh;min-height:100svh;
+  display:grid;place-items:center;
+  padding:clamp(70px,14vmin,150px) clamp(18px,6vw,60px);
+}
+
+/* ---------- Màn hình mở đầu ---------- */
+.intro{
+  position:fixed;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:clamp(10px,3vmin,26px);
+  z-index:5;
+}
+.badge{
+  font-family:'Dancing Script',cursive;font-weight:700;
+  font-size:clamp(2rem,7vmin,3.4rem);
+  color:#f0148c;
+  text-shadow:0 2px 0 rgba(255,255,255,.8),0 0 20px rgba(255,255,255,.9);
+  animation:float 4s ease-in-out infinite;
+}
+.intro-fx{position:relative;width:min(50vmin,360px);aspect-ratio:1}
+.intro-flower{width:100%;height:100%;animation:float 4s ease-in-out -1s infinite}
+.intro-flower svg{
+  width:100%;height:100%;overflow:visible;
+  filter:drop-shadow(0 14px 24px rgba(200,30,100,.35));
+}
+.ring{
+  position:absolute;inset:0;border-radius:50%;
+  border:2px solid rgba(255,255,255,.85);
+  animation:ring 3.6s ease-out infinite;
+}
+.ring:nth-child(2){animation-delay:1.2s}
+.ring:nth-child(3){animation-delay:2.4s}
+@keyframes ring{
+  from{transform:scale(.7);opacity:.9}
+  to{transform:scale(2.1);opacity:0}
+}
+.hint{
+  font-family:'Dancing Script',cursive;font-weight:600;
+  font-size:clamp(1.3rem,4.2vmin,2rem);
+  color:#d3107a;text-align:center;padding:0 16px;
+  animation:blink 2.2s ease-in-out infinite;
+}
+@keyframes blink{50%{opacity:.45;transform:scale(.97)}}
+@keyframes float{
+  50%{transform:translateY(-12px) rotate(2deg)}
+}
+.opened .intro{
+  pointer-events:none;
+  animation:introOut 1s ease-in forwards;
+}
+@keyframes introOut{
+  to{opacity:0;transform:scale(2.4);filter:blur(12px);visibility:hidden}
+}
+
+/* ---------- Thẻ lời chúc ---------- */
+.card{
+  position:relative;
+  width:100%;max-width:800px;
+  padding:clamp(20px,4.5vw,44px);
+  border-radius:30px;
+  background:rgba(255,244,248,.28);
+  -webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);
+  box-shadow:0 10px 50px rgba(220,60,120,.18),inset 0 0 0 1px rgba(255,255,255,.45);
+  opacity:0;visibility:hidden;
+  transform:scale(.92);
+}
+.opened .card{
+  visibility:visible;opacity:1;transform:none;
+  transition:opacity .9s ease .8s,transform 1.1s cubic-bezier(.2,.9,.3,1) .8s;
+}
+
+/* Tiêu đề */
+.title{
+  font-family:'Dancing Script','Brush Script MT',cursive;
+  font-weight:700;
+  font-size:clamp(2.3rem,7.4vw,4.6rem);
+  line-height:1.15;
+  text-align:center;
+  color:#ff1d9c;
+  text-shadow:0 2px 0 rgba(255,255,255,.75),0 0 22px rgba(255,29,156,.28);
+}
+.t-line{display:block}
+.tw{display:inline-block;white-space:nowrap}
+.ch{
+  display:inline-block;
+  animation:charIn .95s cubic-bezier(.2,.9,.3,1) both;
+}
+@keyframes charIn{
+  0%{opacity:0;transform:translateY(-44px) scale(1.9) rotate(-8deg);filter:blur(10px)}
+  60%{opacity:1;transform:translateY(4px) scale(.96) rotate(1deg);filter:blur(0)}
+  100%{opacity:1;transform:none;filter:blur(0)}
+}
+.title.done{animation:glow 3.2s ease-in-out infinite}
+@keyframes glow{
+  50%{filter:drop-shadow(0 0 14px rgba(255,29,156,.55))}
+}
+
+/* Đường kẻ trang trí */
+.divider{
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  margin:clamp(12px,2.5vw,22px) auto;width:min(70%,380px);
+  color:#f0148c;
+}
+.divider span{
+  flex:1;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,transparent,#ff6fb5,transparent);
+  transform:scaleX(0);transition:transform 1.2s cubic-bezier(.2,.8,.2,1);
+}
+.divider b{
+  font-size:1.2rem;transform:scale(0);
+  transition:transform .8s cubic-bezier(.3,1.8,.4,1) .5s;
+}
+.divider.grow span{transform:scaleX(1)}
+.divider.grow b{transform:scale(1);animation:beat 1.4s ease-in-out 1.4s infinite}
+@keyframes beat{
+  0%,100%{transform:scale(1)}
+  15%{transform:scale(1.35)}
+  30%{transform:scale(1)}
+  45%{transform:scale(1.25)}
+}
+
+/* Lời chúc */
+.wishes{display:flex;flex-direction:column;gap:clamp(8px,1.6vw,14px)}
+.wish{
+  font-weight:500;
+  font-size:clamp(.95rem,2.4vw,1.2rem);
+  line-height:1.85;
+  text-align:left;
+  text-wrap:pretty;
+  color:#3a2a31;
+  text-shadow:0 1px 0 rgba(255,255,255,.5);
+}
+.wish.closing{
+  font-family:'Dancing Script',cursive;font-weight:700;
+  font-size:clamp(1.6rem,4.6vw,2.4rem);
+  text-align:center;color:#e0127f;line-height:1.3;
+  margin-top:.3em;
+}
+.w{
+  display:inline-block;
+  animation:wordIn .8s cubic-bezier(.2,.8,.2,1) both;
+}
+@keyframes wordIn{
+  from{opacity:0;transform:translateY(16px) scale(.9);filter:blur(6px)}
+  to{opacity:1;transform:none;filter:blur(0)}
+}
+
+/* Nút xem lại */
+.replay{
+  display:block;margin:clamp(14px,3vw,26px) auto 0;
+  font:600 .95rem 'Montserrat',sans-serif;
+  color:#fff;border:0;border-radius:999px;
+  padding:.7em 1.7em;cursor:pointer;
+  background:linear-gradient(135deg,#ff4fa6,#e0127f);
+  box-shadow:0 8px 20px rgba(224,18,127,.35);
+  opacity:0;transform:translateY(10px);pointer-events:none;
+  transition:opacity .8s,transform .8s,box-shadow .3s;
+}
+.replay.show{opacity:1;transform:none;pointer-events:auto}
+.replay:hover{box-shadow:0 10px 28px rgba(224,18,127,.55)}
+
+/* ============ Canvas hiệu ứng ============ */
+#fx{position:fixed;inset:0;z-index:6;pointer-events:none}
+
+/* ============ Màn hình hẹp ============ */
+@media (max-width:560px){
+  .card{border-radius:22px}
+  .wish{line-height:1.75}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .rays,.bg i,.sway{animation:none}
+}
