@@ -14,15 +14,12 @@ body{
   position:fixed;inset:0;z-index:0;overflow:hidden;
   background:radial-gradient(120% 90% at 50% 35%,#ffe6ee 0%,#fbc4d3 55%,#f4a3bd 100%);
 }
-.bg i{
-  position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;
-  animation:drift 18s ease-in-out infinite alternate;
-}
-.bg i:nth-child(2){width:55vmax;height:55vmax;left:-15vmax;top:-20vmax;background:#fff4f8}
-.bg i:nth-child(3){width:50vmax;height:50vmax;right:-15vmax;bottom:-20vmax;background:#ff9fc0;animation-duration:24s}
-.bg i:nth-child(4){width:35vmax;height:35vmax;right:10vmax;top:-10vmax;background:#ffd6e3;animation-duration:20s;animation-delay:-6s}
+.bg i{position:absolute;border-radius:50%;opacity:.55;will-change:transform;animation:drift 18s ease-in-out infinite alternate}
+.bg i:nth-child(2){width:55vmax;height:55vmax;left:-15vmax;top:-20vmax;background:radial-gradient(circle,#fff4f8 0%,rgba(255,244,248,0) 70%)}
+.bg i:nth-child(3){width:50vmax;height:50vmax;right:-15vmax;bottom:-20vmax;background:radial-gradient(circle,#ff9fc0 0%,rgba(255,159,192,0) 70%);animation-duration:24s}
+.bg i:nth-child(4){width:35vmax;height:35vmax;right:10vmax;top:-10vmax;background:radial-gradient(circle,#ffd6e3 0%,rgba(255,214,227,0) 70%);animation-duration:20s;animation-delay:-6s}
 .rays{
-  position:absolute;left:50%;top:40%;width:220vmax;height:220vmax;translate:-50% -50%;
+  position:absolute;left:50%;top:40%;width:140vmax;height:140vmax;will-change:transform;translate:-50% -50%;
   background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.22) 0 5deg,transparent 5deg 16deg);
   -webkit-mask-image:radial-gradient(circle closest-side,#000 0,transparent 60%);
           mask-image:radial-gradient(circle closest-side,#000 0,transparent 60%);
@@ -56,10 +53,10 @@ body{
 .sway{
   width:100%;height:100%;
   animation:sway var(--sd,7s) ease-in-out var(--sdel,0s) infinite alternate;
+  will-change:transform;
 }
 .sway svg{
   width:100%;height:100%;display:block;overflow:visible;
-  filter:drop-shadow(0 8px 14px rgba(190,40,100,.28));
 }
 @keyframes sway{
   from{transform:rotate(-5deg) translate(-4px,0) scale(1)}
@@ -120,7 +117,7 @@ body{
   animation:introOut 1s ease-in forwards;
 }
 @keyframes introOut{
-  to{opacity:0;transform:scale(2.4);filter:blur(12px);visibility:hidden}
+  to{opacity:0;transform:scale(1.8);visibility:hidden}
 }
 
 /* ---------- Thẻ lời chúc ---------- */
@@ -129,8 +126,7 @@ body{
   width:100%;max-width:800px;
   padding:clamp(20px,4.5vw,44px);
   border-radius:30px;
-  background:rgba(255,244,248,.28);
-  -webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);
+  background:rgba(255,240,246,.5);
   box-shadow:0 10px 50px rgba(220,60,120,.18),inset 0 0 0 1px rgba(255,255,255,.45);
   opacity:0;visibility:hidden;
   transform:scale(.92);
@@ -157,11 +153,11 @@ body{
   animation:charIn .95s cubic-bezier(.2,.9,.3,1) both;
 }
 @keyframes charIn{
-  0%{opacity:0;transform:translateY(-44px) scale(1.9) rotate(-8deg);filter:blur(10px)}
-  60%{opacity:1;transform:translateY(4px) scale(.96) rotate(1deg);filter:blur(0)}
-  100%{opacity:1;transform:none;filter:blur(0)}
+  0%{opacity:0;transform:translateY(-44px) scale(1.9) rotate(-8deg)}
+  60%{opacity:1;transform:translateY(4px) scale(.96) rotate(1deg)}
+  100%{opacity:1;transform:none}
 }
-.title.done{animation:glow 3.2s ease-in-out infinite}
+
 @keyframes glow{
   50%{filter:drop-shadow(0 0 14px rgba(255,29,156,.55))}
 }
@@ -212,8 +208,8 @@ body{
   animation:wordIn .8s cubic-bezier(.2,.8,.2,1) both;
 }
 @keyframes wordIn{
-  from{opacity:0;transform:translateY(16px) scale(.9);filter:blur(6px)}
-  to{opacity:1;transform:none;filter:blur(0)}
+  from{opacity:0;transform:translateY(16px) scale(.9)}
+  to{opacity:1;transform:none}
 }
 
 /* Nút xem lại */
@@ -242,3 +238,4 @@ body{
 @media (prefers-reduced-motion:reduce){
   .rays,.bg i,.sway{animation:none}
 }
+@media (max-width:700px){.rays{display:none}}
